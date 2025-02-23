@@ -1,14 +1,21 @@
-import { OrderInfo as OrderInfoComponent } from '@components';
-import { useDispatch } from '../../services/store';
+import { Modal, OrderInfo as OrderInfoComponent } from '@components';
+import { useDispatch, useSelector } from '../../services/store';
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { getOrder, resetOrder } from '../../services/orders';
-import classes from './order-info.module.css';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+  getCreateOrderSelector,
+  getOrder,
+  resetOrder
+} from '../../services/orders';
 
 export const OrderInfo = () => {
   const { id } = useParams();
 
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
+
+  const { order, isLoading } = useSelector(getCreateOrderSelector);
 
   useEffect(() => {
     id && dispatch(getOrder(Number(id)));
@@ -18,9 +25,14 @@ export const OrderInfo = () => {
     };
   }, []);
 
+  if (isLoading) return null;
+
   return (
-    <div className={classes.root}>
+    <Modal
+      title={`#${order?.number && order?.number.toString().padStart(6, '0')}`}
+      onClose={() => navigate(-1)}
+    >
       <OrderInfoComponent />
-    </div>
+    </Modal>
   );
 };

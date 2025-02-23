@@ -12,9 +12,7 @@ const initialState: IFeedState = {
   total: 0
 };
 
-export const getOrdersAll = createAsyncThunk('feed/getOrdersAll', () =>
-  getFeedsApi()
-);
+export const getOrdersAll = createAsyncThunk('feed/getOrdersAll', getFeedsApi);
 
 export const feed = createSlice({
   name: 'feed',

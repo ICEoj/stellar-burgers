@@ -34,11 +34,13 @@ export const router = createBrowserRouter([
           },
           {
             path: 'profile/orders',
-            element: <ProfileOrders />
-          },
-          {
-            path: 'profile/orders/:id',
-            element: <OrderInfo />
+            element: <ProfileOrders />,
+            children: [
+              {
+                path: ':id',
+                element: <OrderInfo />
+              }
+            ]
           }
         ]
       },
@@ -78,11 +80,13 @@ export const router = createBrowserRouter([
       },
       {
         path: 'feed',
-        element: <Feed />
-      },
-      {
-        path: 'feed/:id',
-        element: <OrderInfo />
+        element: <Feed />,
+        children: [
+          {
+            path: ':id',
+            element: <OrderInfo />
+          }
+        ]
       },
       {
         path: '*',

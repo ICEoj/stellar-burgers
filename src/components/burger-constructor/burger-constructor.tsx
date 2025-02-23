@@ -8,11 +8,17 @@ import {
   getCreateOrderSelector,
   resetOrder
 } from '../../services/orders';
+import { getAuthUserSelector } from '../../services/auth';
+import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const constructorItems = useSelector(getBurgerConstructorSelector);
+
+  const authUser = useSelector(getAuthUserSelector);
 
   const { isLoading: orderRequest, order: orderModalData } = useSelector(
     getCreateOrderSelector
@@ -21,7 +27,15 @@ export const BurgerConstructor: FC = () => {
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
 
-    dispatch(createOrder(constructorItems.ingredients.map(({ id }) => id)));
+    if (!authUser) return navigate('/login');
+
+    dispatch(
+      createOrder([
+        constructorItems.bun._id,
+        ...constructorItems.ingredients.map(({ _id }) => _id),
+        constructorItems.bun._id
+      ])
+    );
   };
 
   const closeOrderModal = () => {
