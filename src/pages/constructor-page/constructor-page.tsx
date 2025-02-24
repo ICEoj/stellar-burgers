@@ -6,6 +6,7 @@ import { Preloader } from '@ui';
 import { FC } from 'react';
 import { useSelector } from '../../services/store';
 import { getDictionariesSelector } from '../../services/dictionaries';
+import { Outlet } from 'react-router-dom';
 
 export const ConstructorPage: FC = () => {
   const { isLoading } = useSelector(getDictionariesSelector);
@@ -22,6 +23,7 @@ export const ConstructorPage: FC = () => {
       <div className={`${styles.main} pl-5 pr-5`}>
         <BurgerIngredients />
         <BurgerConstructor />
+        <Outlet />
       </div>
     </main>
   );

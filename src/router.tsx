@@ -75,8 +75,14 @@ export const router = createBrowserRouter([
         element: <ConstructorPage />
       },
       {
-        path: 'ingredients/:ingredientId',
-        element: <IngredientDetails />
+        path: '/',
+        element: <ConstructorPage />,
+        children: [
+          {
+            path: 'ingredients/:ingredientId',
+            element: <IngredientDetails />
+          }
+        ]
       },
       {
         path: 'feed',
