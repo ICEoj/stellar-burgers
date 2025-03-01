@@ -74,6 +74,7 @@ export const orders = createSlice({
       })
       .addCase(getOrders.fulfilled, (state, action) => {
         state.orders = action.payload;
+        state.isLoading = false;
       });
 
     /// Создание заказа.

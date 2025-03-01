@@ -3,7 +3,7 @@ import { getAuthUser, login, register } from '../auth';
 import { rootReducer } from '../store';
 import { TUser } from '@utils-types';
 
-const NAME = 'Ivanov Ivan'
+const NAME = 'Ivanov Ivan';
 const EMAIL = 'ivanov.ivan@yandex.ru';
 const PASSWORD = 'password';
 
@@ -37,6 +37,13 @@ jest.mock('@api', () => ({
       accessToken: 'accessToken',
       refreshToken: 'refreshToken'
     })
+  ),
+  registerUserApi: jest.fn(() =>
+    Promise.resolve({
+      user,
+      accessToken: 'accessToken',
+      refreshToken: 'refreshToken'
+    })
   )
 }));
 
@@ -63,6 +70,7 @@ describe('auth', () => {
     const { auth } = store.getState();
 
     expect(auth.user).toEqual(user);
+    expect(auth.errorText).toBeUndefined();
   });
 
   it('Вход пользователя', async () => {
@@ -76,6 +84,7 @@ describe('auth', () => {
     const { auth } = store.getState();
 
     expect(auth.user).toEqual(user);
+    expect(auth.errorText).toBeUndefined();
   });
 
   it('Получение данных авторизированного пользователя', async () => {
@@ -84,5 +93,6 @@ describe('auth', () => {
     const { auth } = store.getState();
 
     expect(auth.user).toEqual(user);
+    expect(auth.errorText).toBeUndefined();
   });
 });
