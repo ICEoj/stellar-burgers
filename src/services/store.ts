@@ -11,7 +11,7 @@ import { dictionaries } from './dictionaries';
 import { burgerConstructor } from './burger-constructor';
 import { feed } from './feed';
 
-const rootReducer = combineSlices(
+export const rootReducer = combineSlices(
   auth,
   orders,
   dictionaries,
