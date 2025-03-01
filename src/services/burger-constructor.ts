@@ -65,7 +65,12 @@ export const moveIngredient = createAction(
 export const burgerConstructor = createSlice({
   name: 'burgerConstructor',
   initialState,
-  reducers: {},
+  reducers: {
+    resetBurgerConstructor: (state) => {
+      state.bun = null;
+      state.ingredients = [];
+    }
+  },
   extraReducers: (builder) => {
     // Добавление ингредиента в хранилище конструктора бургера.
     builder.addCase(addIngredient, (state, action) => {
@@ -110,3 +115,5 @@ export const burgerConstructor = createSlice({
  * @description Селекторы хранилища конструктора бургера.
  * */
 export const { getBurgerConstructorSelector } = burgerConstructor.selectors;
+
+export const { resetBurgerConstructor } = burgerConstructor.actions;

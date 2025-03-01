@@ -30,7 +30,7 @@ export const initialState: IDictionariesState = {
  * */
 export const getIngredients = createAsyncThunk(
   'dictionaries/getIngredients',
-  () => getIngredientsApi()
+  getIngredientsApi
 );
 
 /**
